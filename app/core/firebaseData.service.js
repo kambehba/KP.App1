@@ -18,12 +18,12 @@
         //public methods
         function getProjects() {
             
-            var projects = [];
+            var promise = [];
             var dataRef = new Firebase(FIREBASE_URL);
             var deferred = $q.defer();
             dataRef.once('value', function (snapshot) {
-                projects = snapshot.val();
-                deferred.resolve(projects);
+                promise = snapshot.val();
+                deferred.resolve(promise);
             });
             return (deferred.promise);
         }

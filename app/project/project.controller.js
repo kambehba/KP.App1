@@ -16,8 +16,8 @@
 
         firebaseDataService.getProjects().then
                (
-                       function (projects) {
-                           vm.projects = projects.projects;
+                       function (promise) {
+                           vm.projects = promise.projects;
                            vm.project = vm.projects[0];
                            var g = 5;
                        }
