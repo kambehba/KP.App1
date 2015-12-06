@@ -16,9 +16,18 @@
 
 
         function getProjects() {
-            firebaseDataService.GetAllProjects().then(function () { var e =5; });
+           
+
+            firebaseDataService.getProjects().then
+                (
+                        function (projects)
+                        {
+                            var e = projects;
+                            var g = 5;
+                        }
+                );
             
-        };
+        }
 
 
 
