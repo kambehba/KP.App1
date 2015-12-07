@@ -1,10 +1,15 @@
 ﻿<div>
-     {{vm.gg}}  {{vm.project.title}}
-    yfhdtjhtu
-    <div ng-repeat="project in vm.projects">
-        <div>www</div>
+     <table>
+         <tr ng-repeat="project in vm.projects">
+             <td>Id:{{project.id}}</td>
+             <td>Title:{{project.title}}</td>
+             <td>Status:{{project.status}}</td>
+         </tr>
+     </table>
+    <!--<div ng-repeat="project in vm.projects">
+        
         {{project.title}}
-    </div>
+    </div>-->
 
   
 </div>
