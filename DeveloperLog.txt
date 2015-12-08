@@ -3,7 +3,7 @@ Kam Parsen Software Inc. copy right 2016.
 *****************KP.App1*****************
 This is a simple WEB CRUD application to 
 manage projects around the house.
-fully implemeted on client side using 
+fully implemented on client side using 
 Firebase and AngularJS. 
 *****************************************	
 

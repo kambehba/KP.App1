@@ -3,17 +3,23 @@
 
     angular
       .module('app.project')
-      .controller('ProjectController', ['$rootScope', 'firebaseDataService', ProjectController]);
+      .controller('ProjectController', ['$scope','$location','firebaseDataService', ProjectController]);
 
-    //ProjectController.$inject = ['$rootScope', 'projectService'];
+    function ProjectController($scope,$location, firebaseDataService, projectService) {
 
-    function ProjectController($rootScope,firebaseDataService, projectService) {
         var vm = this;
-        vm.gg = 'ssss2222ss';
         vm.projects = [];
         vm.project = { id: 0, status: '', title: '' };
-      
+        $scope.temp = [];
 
+        /*****event handlers******/
+        $scope.$on("projectAdded", function (event, project) {
+            if ($scope.isLoading) return;
+            addProject(project);
+
+        })
+      
+        /*****service calls******/
         firebaseDataService.getProjects().then
                (
                        function (promise) {
@@ -23,6 +29,21 @@
                        }
                );
 
-    }
+
+        /*****private methods******/
+        function addProject(project) {
+            $scope.temp.push(project);
+            vm.projects = $scope.temp
+          
+          
+        };
+
+        /*****puplic methods******/
+
+        vm.AddNewProject = function() {
+            $location.path('/add');
+        }
+
+    }/*****end of projectController******/
 
 })();

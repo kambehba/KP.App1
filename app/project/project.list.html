@@ -1,15 +1,23 @@
 ﻿<div>
-     <table>
+    <div>
+        List of All Projects
+    </div> 
+    
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Title</td>
+            <td>Status</td>
+        </tr>
          <tr ng-repeat="project in vm.projects">
-             <td>Id:{{project.id}}</td>
-             <td>Title:{{project.title}}</td>
-             <td>Status:{{project.status}}</td>
+             <td>{{project.id}}</td>
+             <td>{{project.title}}</td>
+             <td>{{project.status}}</td>
          </tr>
      </table>
-    <!--<div ng-repeat="project in vm.projects">
-        
-        {{project.title}}
-    </div>-->
 
+
+    <button ng-click="vm.AddNewProject()">New Project</button>
+    
   
 </div>
