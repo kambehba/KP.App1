@@ -1,4 +1,34 @@
 ﻿<div>
 
-    New Project
+    <table class="table">
+        <tr>
+            <td><label>Title</label></td>
+            <td><textarea ng-model="vm.project.title"></textarea></td>
+            
+        </tr>
+
+        <tr>
+            <td><label>Status</label></td>
+            <td>
+                <select ng-model="vm.project.status">
+                    <option value="Active">Active</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Canceled">Canceled</option>
+                    <option value="Delayed">Delayed</option>
+                </select>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>
+                <button ng-click="vm.AddProject()">Save</button>
+            </td>
+        </tr>
+
+
+
+       
+      
+    </table>
 </div>

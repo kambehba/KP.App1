@@ -27,6 +27,7 @@
         return ({
 
             getProjects: getProjects,
+            addProject: addProject
             
         });
 
@@ -41,6 +42,11 @@
                 deferred.resolve(promise);
             });
             return (deferred.promise);
+        }
+
+        function addProject(project) {
+            projectResource.push(project);
+  
         }
 
     } /*****end of firebaseDataService******/

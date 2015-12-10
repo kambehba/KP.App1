@@ -33,15 +33,21 @@
         /*****private methods******/
         function addProject(project) {
             $scope.temp.push(project);
-            vm.projects = $scope.temp
-          
-          
+            vm.projects = $scope.temp;
+           
         };
 
         /*****puplic methods******/
 
-        vm.AddNewProject = function() {
+        vm.GoToAddPage = function () {
             $location.path('/add');
+        }
+
+        vm.AddProject = function () {
+
+            vm.project.id = 55;
+            firebaseDataService.addProject(vm.project);
+            $location.path('/');
         }
 
     }/*****end of projectController******/
