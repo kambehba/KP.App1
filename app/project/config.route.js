@@ -18,7 +18,14 @@
             templateUrl: 'app/project/project.add.html',
             controller: 'ProjectController',
             controllerAs: 'vm'
+        })
+        .when('/delete', {
+            templateUrl: 'app/project/project.delete.html',
+            controller: 'ProjectController',
+            controllerAs: 'vm'
         });
+
+        
     }
     
 

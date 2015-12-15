@@ -5,14 +5,13 @@
     
     <table class="table">
         <tr>
-            <td>Id</td>
             <td>Title</td>
             <td>Status</td>
         </tr>
          <tr ng-repeat="project in vm.projects">
-             <td>{{project.id}}</td>
              <td>{{project.title}}</td>
              <td>{{project.status}}</td>
+             <td><button ng-click="vm.DeleteProject(project.id)">delete</button></td>
          </tr>
      </table>
 

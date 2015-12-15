@@ -5,36 +5,38 @@
       .module('app.project')
       .controller('ProjectController', ['$scope','$location','firebaseDataService', ProjectController]);
 
-    function ProjectController($scope,$location, firebaseDataService, projectService) {
+    function ProjectController($scope, $location, firebaseDataService, projectService) {
+
 
         var vm = this;
+        var ss = {};
         vm.projects = [];
-        vm.project = { id: 0, status: '', title: '' };
-        $scope.temp = [];
+        vm.project2 = [];
+        vm.project = {status: null,title: null};
+        $scope.temp =[];
+
 
         /*****event handlers******/
-        $scope.$on("projectAdded", function (event, project) {
+        $scope.$on("projectAdded", function (event, projects) {
             if ($scope.isLoading) return;
-            addProject(project);
+            reLoadProjects(projects);
 
         })
-      
+
         /*****service calls******/
         firebaseDataService.getProjects().then
                (
                        function (promise) {
                            vm.projects = promise.projects;
-                           vm.project = vm.projects[0];
                           
-                       }
-               );
+               });
 
 
         /*****private methods******/
-        function addProject(project) {
-            $scope.temp.push(project);
-            vm.projects = $scope.temp;
-           
+        function reLoadProjects(projects) {
+            vm.projects = projects;
+            
+
         };
 
         /*****puplic methods******/
@@ -43,13 +45,28 @@
             $location.path('/add');
         }
 
-        vm.AddProject = function () {
 
-            vm.project.id = 55;
+        vm.DeleteProject = function (id) {
+
+            firebaseDataService.deleteProject(id).then
+            (
+            firebaseDataService.getProjects().then
+               (
+                       function (promise) {
+                           vm.projects = promise.projects;
+                       }
+               )
+            );
+        }
+
+        vm.AddProject = function () {
+            
+
             firebaseDataService.addProject(vm.project);
             $location.path('/');
         }
 
+       
     }/*****end of projectController******/
 
 })();
