@@ -6,16 +6,12 @@
       .controller('ProjectController', ['$scope','$location','firebaseDataService', ProjectController]);
 
     function ProjectController($scope, $location, firebaseDataService, projectService) {
-
-
+       
         var vm = this;
-        var ss = {};
         vm.projects = [];
-        vm.project2 = [];
-        vm.project = {status: null,title: null};
-        $scope.temp =[];
-
-
+        vm.project = {id:0, status: null, title: null };
+        $scope.temp = [];
+        
         /*****event handlers******/
         $scope.$on("projectAdded", function (event, projects) {
             if ($scope.isLoading) return;
@@ -24,13 +20,11 @@
         })
 
         /*****service calls******/
-        firebaseDataService.getProjects().then
-               (
-                       function (promise) {
-                           vm.projects = promise.projects;
-                          
-               });
+        firebaseDataService.getProjects().then(function (promise) {
+                            vm.projects = promise.projects;
 
+                });
+        
 
         /*****private methods******/
         function reLoadProjects(projects) {
@@ -39,12 +33,18 @@
 
         };
 
+
         /*****puplic methods******/
 
         vm.GoToAddPage = function () {
             $location.path('/add');
         }
 
+        vm.GoToUpdatePage = function (project) {
+            $location.path('/update');
+            firebaseDataService.selectedProject = project;
+            
+        }
 
         vm.DeleteProject = function (id) {
 
@@ -66,7 +66,8 @@
             $location.path('/');
         }
 
+        
        
-    }/*****end of projectController******/
+    }/*****end of ProjectController******/
 
 })();

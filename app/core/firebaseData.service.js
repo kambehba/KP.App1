@@ -12,6 +12,7 @@
         var projects = [];
         var projectResource = new Firebase('https://dazzling-torch-8270.firebaseio.com/projects');
         var projectId = 0;
+        var selectedProject = {id:0,status:"",title:""};
         /*****events******/
 
         projectResource.on('child_added', function (snapshot) {
@@ -30,7 +31,9 @@
 
             getProjects: getProjects,
             addProject: addProject,
-            deleteProject: deleteProject
+            deleteProject: deleteProject,
+            updateProject: updateProject,
+            selectedProject: selectedProject
             
         });
 
@@ -62,6 +65,19 @@
             var ref = new Firebase('https://dazzling-torch-8270.firebaseio.com/projects/' + id);
             ref.remove();
            
+            var promise = [];
+            var deferred = $q.defer();
+            dataRef.once('value', function (snapshot) {
+                promise = snapshot.val();
+                deferred.resolve(promise);
+            });
+            return (deferred.promise);
+        }
+
+        function updateProject(project) {
+            var ref = new Firebase('https://dazzling-torch-8270.firebaseio.com/projects/' + project.id);
+            ref.set({id:project.id,status:project.status,title:project.title});
+
             var promise = [];
             var deferred = $q.defer();
             dataRef.once('value', function (snapshot) {

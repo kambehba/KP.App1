@@ -23,7 +23,14 @@
             templateUrl: 'app/project/project.delete.html',
             controller: 'ProjectController',
             controllerAs: 'vm'
+        })
+        .when('/update', {
+            templateUrl: 'app/project/project.update.html',
+            controller: 'ProjectUpdateController',
+            controllerAs: 'vm'
         });
+
+        
 
         
     }

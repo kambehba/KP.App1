@@ -11,6 +11,7 @@
          <tr ng-repeat="project in vm.projects">
              <td>{{project.title}}</td>
              <td>{{project.status}}</td>
+             <td><button ng-click="vm.GoToUpdatePage(project)">update</button></td>
              <td><button ng-click="vm.DeleteProject(project.id)">delete</button></td>
          </tr>
      </table>
