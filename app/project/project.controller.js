@@ -11,13 +11,28 @@
         vm.projects = [];
         vm.project = {id:0, status: null, title: null };
         $scope.temp = [];
+       
         
         /*****event handlers******/
         $scope.$on("projectAdded", function (event, projects) {
             if ($scope.isLoading) return;
-            reLoadProjects(projects);
+            //reload items
+            firebaseDataService.getProjects().then(function (promise) {
+                vm.projects = promise.projects;
 
-        })
+            });
+
+        });
+
+        $scope.$on("projectChanged", function (event, project) {
+            if ($scope.isLoading) return;
+            //reload items
+            firebaseDataService.getProjects().then(function (promise) {
+                vm.projects = promise.projects;
+
+            });
+
+        });
 
         /*****service calls******/
         firebaseDataService.getProjects().then(function (promise) {
@@ -29,8 +44,7 @@
         /*****private methods******/
         function reLoadProjects(projects) {
             vm.projects = projects;
-            
-
+           
         };
 
 
@@ -43,6 +57,7 @@
         vm.GoToUpdatePage = function (project) {
             $location.path('/update');
             firebaseDataService.selectedProject = project;
+           
             
         }
 
@@ -66,8 +81,7 @@
             $location.path('/');
         }
 
-        
-       
+          
     }/*****end of ProjectController******/
 
 })();

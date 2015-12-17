@@ -3,25 +3,35 @@
 
     angular
       .module('app.core')
-      .factory('firebaseDataService', ['$q', '$rootScope', '$firebaseArray', 'FIREBASE_URL', firebaseDataService]);
+      .factory('firebaseDataService', ['$q', '$rootScope', '$firebaseArray','$location','$timeout', 'FIREBASE_URL', firebaseDataService]);
 
    
 
-    function firebaseDataService($q, $rootScope, $firebaseArray,FIREBASE_URL) {
+    function firebaseDataService($q, $rootScope, $firebaseArray, $location, $timeout,FIREBASE_URL) {
         var dataRef = new Firebase(FIREBASE_URL);
         var projects = [];
         var projectResource = new Firebase('https://dazzling-torch-8270.firebaseio.com/projects');
         var projectId = 0;
         var selectedProject = {id:0,status:"",title:""};
+
         /*****events******/
 
         projectResource.on('child_added', function (snapshot) {
+
             $rootScope.$evalAsync(
                 function handleEvalAsync() {
                     projects.push(snapshot.val());
                     
                     $rootScope.$broadcast("projectAdded", projects);
                 });
+        });
+
+        projectResource.on('child_changed', function (snapshot) {
+
+            $timeout(function () {
+                project = snapshot.val();
+                $rootScope.$broadcast('projectChanged', project);
+            }, 100);
         });
 
 
@@ -33,12 +43,13 @@
             addProject: addProject,
             deleteProject: deleteProject,
             updateProject: updateProject,
-            selectedProject: selectedProject
-            
+            selectedProject: selectedProject,
+                    
         });
 
 
         /*****public methods******/
+
         function getProjects() {
             
             var promise = [];
@@ -87,7 +98,7 @@
             return (deferred.promise);
         }
 
-        
+       
         /*****private methods******/
         function getNextAvilableId() {
             var idRef = new Firebase('https://dazzling-torch-8270.firebaseio.com/id');

@@ -11,12 +11,12 @@
 		vm.project = {id:0,status:"",title:""};
 		vm.project = firebaseDataService.selectedProject;
 
-
+		
 
 		/*****puplic methods******/
 		vm.Save = function () {
-			firebaseDataService.updateProject(vm.project).then(function () { $location.path('/'); });
-			
+		    firebaseDataService.updateProject(vm.project).then(function () { $location.path('/'); });
+		    
 		}
 			
 
